@@ -40,7 +40,7 @@ var fight = function(enemy) {
     }
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
-    var damage = randomNumber(enemy.attack - 3,)
+    var damage = randomNumber(enemy.attack - 3, enemy.attack)
     playerInfo.health = Math.max(0, playerInfo.health - damage);
 
     // check player's health
@@ -56,7 +56,7 @@ var fight = function(enemy) {
 
 //function to generate a random numeric value
 var randomNumber = function(min, max) {
-  var value = Math.floor(Math.random() * (max-min + 1));
+  var value = Math.floor(Math.random() * (max-min + 1)+ min);
 
   return value;
 }
@@ -64,7 +64,7 @@ var randomNumber = function(min, max) {
 // function to start a new game
 var startGame = function() {
   // reset player stats
-  playerInfo.reset ();
+  playerInfo.reset();
 
   // fight each enemy robot by looping over them and fighting them one at a time
   for (var i = 0; i < enemyInfo.length; i++) {
@@ -136,29 +136,11 @@ var shop = function() {
   switch (shopOptionPrompt) {
     case 'REFILL':
     case 'refill':
-      if (playerInfo.money >= 7) {
-        window.alert("Refilling player's health by 20 for 7 dollars.");
-
-        // increase health and decrease money
-        playerInfo.health = playerInfo.health + 20;
-        playerInfo.money = playerInfo.money - 7;
-    }
-    else {
-        window.alert("You don't have enough money!");
-    }
+      playerInfo.refillHealth();
       break;
     case 'UPGRADE':
     case 'upgrade':
-      if (playerInfo.money >= 7) {
-        window.alert("Upgrading player's attack by 6 for 7 dollars.");
-
-        // increase attack and decrease money
-        playerInfo.attack = playerInfo.attack + 6;
-        playerInfo.money = playerInfo.money - 7;
-    }
-    else {
-        window.alert("You don't have enough money!");
-    }
+      playerInfo.upgradeAttack();
       break;
     case 'LEAVE':
     case 'leave':
@@ -184,7 +166,7 @@ var playerInfo = {
     this.health = 100;
     this.money = 10;
     this.attack = 10;
-  }, // comma!
+  },
   refillHealth: function() {
     if (this.money >= 7) {
       window.alert("Refilling player's health by 20 for 7 dollars.");
@@ -222,6 +204,11 @@ var enemyInfo = [
     attack: randomNumber(10, 14)
   }
 ];
+
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
 
 // start first game when page loads
 startGame();
