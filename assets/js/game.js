@@ -20,15 +20,20 @@ var fightOrSkip = function() {
       window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
       // subtract money from playerMoney for skipping
       playerInfo.playerMoney = playerInfo.money - 10;
-      shop();
+      //return true if player wants to leave
+      return true;
+      //shop();
     }
   }
+  return false;
 }
 
 // repeat and execute as long as the enemy-robot is alive
 var fight = function(enemy) {
   while (playerInfo.health > 0 && enemy.health > 0) {
-    fightOrSkip();
+    if (fightOrSkip()) {
+      break;
+    }
 
     // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
